@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../components/CustomButton";
+import CustomInput from "../components/CustomInput";
+import TextArea from "../components/TextArea";
+import { useNavigate } from "react-router-dom";
 
 export default function AddFavorites() {
   const [data, setData] = useState([]);
   const [userdata, setUserData] = useState({});
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   function handleSearch(e) {
     let localData = JSON.parse(localStorage.getItem("data"));
@@ -11,14 +16,33 @@ export default function AddFavorites() {
       obj.package.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setData(temp);
+    setSearch(e.target.value.toLowerCase());
   }
 
   function handleCheckInput(e) {
-    console.log(e.target.value);
     setUserData({ ...userdata, packageName: e.target.value });
   }
 
-  function handleTextArea(e) {}
+  function handleTextArea(e) {
+    setUserData({ ...userdata, favMessage: e.target.value });
+  }
+
+  function handleSubmit() {
+    if (userdata.packageName && userdata.favMessage) {
+      let localData = JSON.parse(localStorage.getItem("favList"));
+      if (localData) {
+        localStorage.setItem(
+          "favList",
+          JSON.stringify([...localData, userdata])
+        );
+      } else {
+        localStorage.setItem("favList", JSON.stringify([userdata]));
+      }
+    } else {
+      // handle erro here
+    }
+    navigate("/");
+  }
 
   useEffect(() => {
     fetch("https://api.npms.io/v2/search?q=reactjs")
@@ -40,10 +64,11 @@ export default function AddFavorites() {
           <legend className="text-md font-semibold">
             Search for NPM Packages
           </legend>
-          <input
+          <CustomInput
             type="text"
-            className="w-full border rounded px-3 py-2 mt-2 focus:outline-none focus:border-blue-500"
-            onChange={handleSearch}
+            handleInput={handleSearch}
+            cls="w-full border rounded px-3 py-2 mt-2 focus:outline-none focus:border-blue-500"
+            value={search}
           />
         </fieldset>
         <fieldset className="border p-4 rounded-lg mt-4">
@@ -52,15 +77,13 @@ export default function AddFavorites() {
             {data.map((ele, i) => {
               return (
                 <div key={i} className="flex items-center">
-                  <input
+                  <CustomInput
                     type="radio"
+                    handleInput={handleCheckInput}
+                    cls="mr-2 hover:cursor-pointer"
                     name="radio"
                     value={ele.package.name}
-                    className="mr-2 hover:cursor-pointer"
-                    onChange={handleCheckInput}
-                    required
-                  />{" "}
-                  {ele.package.name}
+                  />
                 </div>
               );
             })}
@@ -70,13 +93,17 @@ export default function AddFavorites() {
           <legend className="text-md font-semibold">
             Why is this your favorite package?
           </legend>
-          <textarea
-            className="w-full border rounded px-3 py-2 mt-2 focus:outline-none focus:border-blue-500"
-            rows="4"
-            onChange={handleTextArea}
-          ></textarea>
+          <TextArea
+            cls="w-full border rounded px-3 py-2 mt-2 focus:outline-none focus:border-blue-500"
+            row="4"
+            handleChange={handleTextArea}
+          />
         </fieldset>
-        <CustomButton name="Add Fav" />
+        <CustomButton
+          name="Add Fav"
+          cls="bg-blue-500 hover:bg-blue-700 w-auto text-white font-bold py-2 px-4 rounded mt-4"
+          clickHandle={handleSubmit}
+        />
       </form>
     </div>
   );
