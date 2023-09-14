@@ -6,30 +6,17 @@ import Modal from "./Modal";
 
 export default function TableComponent(props) {
   const [show, setShow] = useState(false);
-  const [fun, setFun] = useState();
   const [id, setId] = useState("");
   const [value, setvalue] = useState({});
-
-  function handleDelete() {
-    console.log(id, "sss");
-    let localData = JSON.parse(localStorage.getItem("favList"));
-    if (localData.length) {
-      let temp = localData.filter((obj, i) => i !== id);
-      props.setLocal(temp);
-      localStorage.setItem("favList", JSON.stringify(temp));
-    }
-  }
+  const [update, setUpdate] = useState("");
 
   useEffect(() => {
-    if (id === 0 || id) {
+    if (id >= 0) {
       let temp = JSON.parse(localStorage.getItem("favList"));
       let val = temp.filter((obj, i) => i === id);
       setvalue(val);
+      setUpdate(val[0]?.favMessage);
     }
-  }, [id]);
-
-  useEffect(() => {
-    console.log(id, "id");
   }, [id]);
 
   return (
@@ -82,7 +69,6 @@ export default function TableComponent(props) {
                     onClick={() => {
                       setShow("delete");
                       setId(i);
-                      setFun(() => handleDelete);
                     }}
                   >
                     <AiOutlineDelete size={15} />
@@ -97,8 +83,11 @@ export default function TableComponent(props) {
         <Modal
           action={show}
           setShow={setShow}
-          handleClick={fun}
           userValue={value}
+          userId={id}
+          setLocal={props.setLocal}
+          update={update}
+          setUpdate={setUpdate}
         />
       )}
     </>

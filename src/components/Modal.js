@@ -1,7 +1,35 @@
 import React from "react";
 
-function Modal({ action, setShow, handleClick, userValue, update, setUpdate }) {
-  console.log(update);
+function Modal({
+  action,
+  setShow,
+  userId,
+  userValue,
+  update,
+  setUpdate,
+  setLocal,
+}) {
+  function click() {
+    if (action === "delete") {
+      let localData = JSON.parse(localStorage.getItem("favList"));
+      let temp = localData.filter((obj, i) => i !== userId);
+      localStorage.setItem("favList", JSON.stringify(temp));
+      setLocal(temp);
+      setShow(false);
+    } else if (action === "edit") {
+      let localData = JSON.parse(localStorage.getItem("favList"));
+      let temp = localData.map((obj, i) => {
+        if (i === userId) {
+          obj.favMessage = update;
+        }
+        return obj;
+      });
+      localStorage.setItem("favList", JSON.stringify(temp));
+      setLocal(temp);
+      setShow(false);
+    }
+  }
+
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center: 'opacity-0 pointer-events-none'}`}
@@ -48,10 +76,7 @@ function Modal({ action, setShow, handleClick, userValue, update, setUpdate }) {
           {action !== "view" && (
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={() => {
-                handleClick();
-                setShow("");
-              }}
+              onClick={click}
             >
               {(action === "edit" && "update") ||
                 (action === "delete" && "delete")}
