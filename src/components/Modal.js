@@ -9,6 +9,7 @@ function Modal({
   update,
   setUpdate,
   setLocal,
+  setId,
 }) {
   console.log(userValue, "modal");
   function click() {
@@ -26,8 +27,8 @@ function Modal({
         return obj;
       });
       localStorage.setItem("favList", JSON.stringify(temp));
-      //   setLocal(temp);
       setShow(false);
+      setId("");
     }
   }
 

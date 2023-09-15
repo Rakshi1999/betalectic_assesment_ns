@@ -86,6 +86,7 @@ export default function TableComponent(props) {
           setLocal={props.setLocal}
           update={update}
           setUpdate={setUpdate}
+          setId={setId}
         />
       )}
     </>
