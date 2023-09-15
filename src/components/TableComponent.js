@@ -21,31 +21,31 @@ export default function TableComponent(props) {
 
   return (
     <>
-      <table className="min-w-full divide-y divide-gray-200 mt-8 border">
+      <table className="min-w-full divide-y divide-gray-200 mt-5 border drop-shadow-xl">
         <thead>
           <tr>
-            <th className="px-6 py-3 bg-gray-200 text-left text-sm leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
+            <th className="px-6 py-3 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
               Package Name
             </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
+            <th className="px-6 py-3 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
               Action
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y">
           {props.dataSource.map((obj, i) => {
             return (
               <tr key={i}>
                 <td className="px-6 py-4 whitespace-no-wrap">
-                  <div className="flex items-center">
-                    <div className="text-sm leading-5 font-medium text-gray-900">
+                  {/* <div className="flex items-center"> */}
+                    <div className="text-sm leading-5 font-medium text-gray-900 capitalize">
                       {obj.packageName}
                     </div>
-                  </div>
+                  {/* </div> */}
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap space-x-5">
                   <span
-                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100"
+                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 hover:bg-green-50 hover:cursor-pointer"
                     onClick={() => {
                       setShow("view");
                       setId(i);
@@ -54,7 +54,7 @@ export default function TableComponent(props) {
                     <GrFormView size={15} />
                   </span>
                   <span
-                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-blue-800 hover:bg-green-50 hover:cursor-pointer"
                     onClick={() => {
                       setShow("edit");
                       setId(i);
@@ -63,7 +63,7 @@ export default function TableComponent(props) {
                     <FiEdit size={15} />
                   </span>
                   <span
-                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-red-800 hover:bg-green-50 hover:cursor-pointer"
                     onClick={() => {
                       setShow("delete");
                       setId(i);

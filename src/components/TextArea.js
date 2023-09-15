@@ -6,6 +6,8 @@ export default function TextArea(props) {
       className={props.cls}
       rows={props.row}
       onChange={(e) => props.handleChange(e)}
+      placeholder={props.place || ""}
+      value={props.value || ""}
     ></textarea>
   );
 }

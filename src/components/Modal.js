@@ -1,5 +1,6 @@
 import React from "react";
 import CustomButton from "./CustomButton";
+import TextArea from "./TextArea";
 
 function Modal({
   action,
@@ -37,7 +38,7 @@ function Modal({
       className={`fixed inset-0 flex items-center justify-center 'opacity-0 pointer-events-none'}`}
     >
       <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-      <div className="modal-container bg-white w-96 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div className="modal-container bg-sky-50 w-[35%] mx-auto drop-shadow-2xl rounded shadow-lg z-50 overflow-y-auto">
         <div className="modal-content py-4 text-left px-6">
           <h2 className="text-xl font-semibold mb-4 capitalize text-center">
             {action}
@@ -45,27 +46,33 @@ function Modal({
           {(action === "delete" && <p>Are you sure you want to delete?</p>) ||
             (action === "edit" && (
               <div>
-                <h2>Package : {userValue[0]?.packageName}</h2>
+                <h2 className="font-bold">
+                  Package :{" "}
+                  <span className=" font-normal">
+                    {userValue[0]?.packageName}
+                  </span>
+                </h2>
                 <div className="mt-2">
-                  <div className="font-semibold">Message</div>
-                  <input
-                    className="border border-grey-700 p-1 mt-2 rounded-sm"
+                  <div className="font-bold">Message:</div>
+                  <TextArea
+                    cls="border w-full border-grey-700 p-1 mt-2 rounded-sm"
                     type="text"
                     value={update}
-                    onChange={(e) => setUpdate(e.target.value)}
+                    handleChange={(e) => setUpdate(e.target.value)}
+                    row={3}
                   />
                 </div>
               </div>
             )) ||
             (action === "view" && (
               <div>
-                <h2 className="font-bold">
+                <h2 className="font-bold capitalize">
                   Package Name :{" "}
                   <span className=" font-normal">
                     {userValue[0]?.packageName}
                   </span>
                 </h2>
-                <p className="font-bold">
+                <p className="font-bold mt-4">
                   Message:{" "}
                   <span className="font-normal">
                     {userValue[0]?.favMessage}

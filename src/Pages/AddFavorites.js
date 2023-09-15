@@ -98,12 +98,12 @@ export default function AddFavorites() {
   }, []);
 
   return (
-    <div className="p-4 bg-cyan-200 h-screen">
+    <div className="p-4 bg-sky-100 h-screen">
       <h1 className="text-3xl font-semibold mt-5 text-center font-serif">
         Add your Favorite NPM Package Here
       </h1>
       <form
-        className=" bg-zinc-100 bg-opacity-3 p-5 mt-8 rounded-md w-[60%] m-auto"
+        className=" bg-white bg-opacity-3 p-5 mt-8 rounded-md w-[60%] m-auto drop-shadow-2xl"
         onSubmit={(e) => e.preventDefault()}
       >
         <fieldset className="border border-cyan-600 p-4 rounded-lg">
@@ -115,11 +115,15 @@ export default function AddFavorites() {
             handleInput={handleSearch}
             cls="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
             value={search}
+            place="Search for your favorite packages here"
           />
         </fieldset>
         <fieldset className="border border-cyan-600 p-4 rounded-lg mt-4">
           <legend className="text-md font-semibold">Results</legend>
           <div className="mt-2 space-y-2 h-40 min-h-40 overflow-scroll">
+            {data.length === 0 && (
+              <p className="text-center text-red-500">No data available!!</p>
+            )}
             {data.map((ele, i) => {
               return (
                 <div key={i} className="flex items-center">
@@ -146,6 +150,8 @@ export default function AddFavorites() {
             cls="w-full border rounded px-3 py-2 mt-2 focus:outline-none focus:border-blue-500"
             row="4"
             handleChange={handleTextArea}
+            place="This is my favorite beacuse of its developer friendly nature."
+            value={userdata.favMessage}
           />
           {error.message && <p className=" text-red-600">{error.message}</p>}
         </fieldset>
