@@ -10,15 +10,15 @@ function Modal({
   setUpdate,
   setLocal,
 }) {
+  console.log(userValue, "modal");
   function click() {
+    let localData = JSON.parse(localStorage.getItem("favList"));
     if (action === "delete") {
-      let localData = JSON.parse(localStorage.getItem("favList"));
       let temp = localData.filter((obj, i) => i !== userId);
       localStorage.setItem("favList", JSON.stringify(temp));
       setLocal(temp);
       setShow(false);
     } else if (action === "edit") {
-      let localData = JSON.parse(localStorage.getItem("favList"));
       let temp = localData.map((obj, i) => {
         if (i === userId) {
           obj.favMessage = update;
@@ -26,7 +26,7 @@ function Modal({
         return obj;
       });
       localStorage.setItem("favList", JSON.stringify(temp));
-      setLocal(temp);
+      //   setLocal(temp);
       setShow(false);
     }
   }
