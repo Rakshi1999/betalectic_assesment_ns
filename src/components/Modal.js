@@ -1,4 +1,5 @@
 import React from "react";
+import CustomButton from "./CustomButton";
 
 function Modal({
   action,
@@ -32,7 +33,7 @@ function Modal({
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center: 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 flex items-center justify-center 'opacity-0 pointer-events-none'}`}
     >
       <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
       <div className="modal-container bg-white w-96 mx-auto rounded shadow-lg z-50 overflow-y-auto">
@@ -47,7 +48,7 @@ function Modal({
                 <div className="mt-2">
                   <div className="font-semibold">Message</div>
                   <input
-                    className="outline-1"
+                    className="border border-grey-700 p-1 mt-2 rounded-sm"
                     type="text"
                     value={update}
                     onChange={(e) => setUpdate(e.target.value)}
@@ -74,22 +75,24 @@ function Modal({
         </div>
         <div className="modal-footer py-4 px-6">
           {action !== "view" && (
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={click}
-            >
-              {(action === "edit" && "update") ||
-                (action === "delete" && "delete")}
-            </button>
+            <CustomButton
+              name={
+                (action === "edit" && "Update") ||
+                (action === "delete" && "Delete")
+              }
+              cls={
+                action === "delete"
+                  ? "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2"
+                  : "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
+              }
+              clickHandle={click}
+            />
           )}
-          <button
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-            onClick={() => {
-              setShow("");
-            }}
-          >
-            Cancel
-          </button>
+          <CustomButton
+            name="Cancel"
+            cls="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            clickHandle={() => setShow("")}
+          />
         </div>
       </div>
     </div>

@@ -21,10 +21,10 @@ export default function TableComponent(props) {
 
   return (
     <>
-      <table className="min-w-full divide-y divide-gray-200 mt-8">
+      <table className="min-w-full divide-y divide-gray-200 mt-8 border">
         <thead>
           <tr>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
+            <th className="px-6 py-3 bg-gray-200 text-left text-sm leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
               Package Name
             </th>
             <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider border-b border-gray-300">
@@ -38,16 +38,14 @@ export default function TableComponent(props) {
               <tr key={i}>
                 <td className="px-6 py-4 whitespace-no-wrap">
                   <div className="flex items-center">
-                    <div className="ml-4">
-                      <div className="text-sm leading-5 font-medium text-gray-900">
-                        {obj.packageName}
-                      </div>
+                    <div className="text-sm leading-5 font-medium text-gray-900">
+                      {obj.packageName}
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap space-x-5">
                   <span
-                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100"
                     onClick={() => {
                       setShow("view");
                       setId(i);
